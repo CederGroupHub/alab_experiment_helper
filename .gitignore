@@ -29,6 +29,8 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+.pypirc
+_build/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -74,7 +76,7 @@ instance/
 run.sh
 
 # Sphinx documentation
-docs/_build/
+raw_docs/_build/
 
 # PyBuilder
 target/
