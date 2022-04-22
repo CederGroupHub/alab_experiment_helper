@@ -58,8 +58,19 @@ class Experiment:
             if fmt == "json":
                 import json
 
-                json.dump(self.to_dict(), f, indent=4)
+                json.dump(self.to_dict(), f, indent=2)
             elif fmt == "yaml":
                 import yaml
 
-                yaml.dump(self.to_dict(), f, default_flow_style=False)
+                yaml.dump(self.to_dict(), f, default_flow_style=False, indent=2)
+
+    def visualize(self, path: str, fmt: Literal["png", "jpg", "pdf", "svg"] = "png") -> None:
+        import graphviz
+
+        tasks = self.to_dict()["tasks"]
+        graph = graphviz.Digraph(name=self.name, format=fmt)
+        for i, task in enumerate(tasks):
+            graph.node(str(i), task["type"])
+            for next_task in task["next_tasks"]:
+                graph.edge(str(i), str(next_task))
+        graph.render(filename="figures", directory=path, view=True)

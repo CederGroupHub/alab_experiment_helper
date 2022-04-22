@@ -23,7 +23,7 @@ def simple_heating(samples: List[Sample], temperature: int, duration_hour: float
           is 5 °C/min.
     """
     if len(samples) > 8:
-        raise ValueError("Heating task can only be applied to 4 samples at a time.")
+        raise ValueError("Heating task can only be applied to 8 samples at a time.")
     if temperature < 0 or temperature > 1100:
         raise ValueError("Temperature must be between 0 and 1100 °C.")
     if duration_hour < 0 or duration_hour > 16:

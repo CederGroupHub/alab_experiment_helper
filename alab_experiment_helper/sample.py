@@ -1,14 +1,11 @@
-from typing import List, TYPE_CHECKING, Dict
-
-if TYPE_CHECKING:
-    from .experiment import Experiment
+from typing import List, Dict
 
 
 class Sample:
-    def __init__(self, name: str, experiment: "Experiment"):
+    def __init__(self, name: str, experiment):
         self.name = name
         self._tasks: List[str] = []
-        self.experiment: "Experiment" = experiment
+        self.experiment = experiment
 
     def add_task(self, task_id: str):
         self._tasks.append(task_id)

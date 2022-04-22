@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>alab_experiment_helper.tasks.dispensing &#8212; Alab Experiment Helper 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for alab_experiment_helper.tasks.dispensing</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">alab_experiment_helper.sample</span> <span class="kn">import</span> <span class="n">Sample</span>
+<span class="kn">from</span> <span class="nn">alab_experiment_helper.tasks.base</span> <span class="kn">import</span> <span class="n">task</span>
+
+
+<div class="viewcode-block" id="dispensing"><a class="viewcode-back" href="../../../alab_experiment_helper.tasks.dispensing.html#alab_experiment_helper.tasks.dispensing.dispensing">[docs]</a><span class="nd">@task</span><span class="p">(</span><span class="s2">&quot;Dispensing&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">dispensing</span><span class="p">(</span>
+        <span class="n">samples</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Sample</span><span class="p">],</span>
+        <span class="n">input_file_path</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Dispense samples according to the given recipes in ``.csv`` format.</span>
+
+<span class="sd">    The number of input samples should be equal to the number of recipes * replicates.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        samples: the samples to be operated on, in this setting, each sample is a crucible</span>
+<span class="sd">        input_file_path: the path to the input file, which is a csv file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+        <span class="n">input_file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">input_file_path</span><span class="p">)</span>
+    <span class="c1"># with input_file_path.open(&quot;r&quot;, encoding=&quot;utf-8&quot;) as csvfile:</span>
+    <span class="c1">#     reader = csv.DictReader(csvfile)</span>
+    <span class="c1">#     total_sample_num = sum(row[&quot;replicates&quot;] for row in reader)</span>
+    <span class="c1">#     if len(samples) != total_sample_num:</span>
+    <span class="c1">#         raise ValueError(&quot;Unmatched number of samples and recipes!&quot;)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;input_file_path&quot;</span><span class="p">:</span> <span class="n">input_file_path</span><span class="o">.</span><span class="n">as_posix</span><span class="p">(),</span>
+    <span class="p">}</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../index.html">Alab Experiment Helper</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">API Docs</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Alab Project Team.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

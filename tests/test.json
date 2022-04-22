@@ -1,0 +1,705 @@
+{
+  "name": "test",
+  "samples": [
+    {
+      "name": "sample_0"
+    },
+    {
+      "name": "sample_1"
+    },
+    {
+      "name": "sample_2"
+    },
+    {
+      "name": "sample_3"
+    },
+    {
+      "name": "sample_4"
+    },
+    {
+      "name": "sample_5"
+    },
+    {
+      "name": "sample_6"
+    },
+    {
+      "name": "sample_7"
+    },
+    {
+      "name": "sample_8"
+    },
+    {
+      "name": "sample_9"
+    },
+    {
+      "name": "sample_10"
+    },
+    {
+      "name": "sample_11"
+    },
+    {
+      "name": "sample_12"
+    },
+    {
+      "name": "sample_13"
+    },
+    {
+      "name": "sample_14"
+    },
+    {
+      "name": "sample_15"
+    }
+  ],
+  "tasks": [
+    {
+      "type": "Dispensing",
+      "parameters": {
+        "input_file_path": "example.csv"
+      },
+      "samples": [
+        "sample_0",
+        "sample_1",
+        "sample_2",
+        "sample_3",
+        "sample_4",
+        "sample_5",
+        "sample_6",
+        "sample_7",
+        "sample_8",
+        "sample_9",
+        "sample_10",
+        "sample_11",
+        "sample_12",
+        "sample_13",
+        "sample_14",
+        "sample_15"
+      ],
+      "next_tasks": [
+        1,
+        26,
+        39
+      ]
+    },
+    {
+      "type": "Heating",
+      "parameters": {
+        "setpoints": [
+          [
+            300,
+            60
+          ],
+          [
+            300,
+            600
+          ]
+        ]
+      },
+      "samples": [
+        "sample_0",
+        "sample_1",
+        "sample_2",
+        "sample_3",
+        "sample_4",
+        "sample_5",
+        "sample_6",
+        "sample_7"
+      ],
+      "next_tasks": [
+        2,
+        5,
+        8,
+        11,
+        14,
+        17,
+        20,
+        23
+      ]
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_0"
+      ],
+      "next_tasks": [
+        3
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_0"
+      ],
+      "next_tasks": [
+        4
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_0"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_1"
+      ],
+      "next_tasks": [
+        6
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_1"
+      ],
+      "next_tasks": [
+        7
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_1"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_2"
+      ],
+      "next_tasks": [
+        9
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_2"
+      ],
+      "next_tasks": [
+        10
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_2"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_3"
+      ],
+      "next_tasks": [
+        12
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_3"
+      ],
+      "next_tasks": [
+        13
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_3"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_4"
+      ],
+      "next_tasks": [
+        15
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_4"
+      ],
+      "next_tasks": [
+        16
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_4"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_5"
+      ],
+      "next_tasks": [
+        18
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_5"
+      ],
+      "next_tasks": [
+        19
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_5"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_6"
+      ],
+      "next_tasks": [
+        21
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_6"
+      ],
+      "next_tasks": [
+        22
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_6"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_7"
+      ],
+      "next_tasks": [
+        24
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_7"
+      ],
+      "next_tasks": [
+        25
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_7"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "HeatingWithAtmosphere",
+      "parameters": {
+        "setpoints": [
+          [
+            300,
+            60
+          ],
+          [
+            300,
+            600
+          ]
+        ],
+        "atmosphere": "Ar",
+        "flow_rate": 100
+      },
+      "samples": [
+        "sample_8",
+        "sample_9",
+        "sample_10",
+        "sample_11"
+      ],
+      "next_tasks": [
+        33,
+        27,
+        36,
+        30
+      ]
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_8"
+      ],
+      "next_tasks": [
+        28
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_8"
+      ],
+      "next_tasks": [
+        29
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_8"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_9"
+      ],
+      "next_tasks": [
+        31
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_9"
+      ],
+      "next_tasks": [
+        32
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_9"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_10"
+      ],
+      "next_tasks": [
+        34
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_10"
+      ],
+      "next_tasks": [
+        35
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_10"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_11"
+      ],
+      "next_tasks": [
+        37
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_11"
+      ],
+      "next_tasks": [
+        38
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_11"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "HeatingWithAtmosphere",
+      "parameters": {
+        "setpoints": [
+          [
+            300,
+            60
+          ],
+          [
+            300,
+            600
+          ]
+        ],
+        "atmosphere": "N2",
+        "flow_rate": 100
+      },
+      "samples": [
+        "sample_12",
+        "sample_13",
+        "sample_14",
+        "sample_15"
+      ],
+      "next_tasks": [
+        40,
+        49,
+        43,
+        46
+      ]
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_12"
+      ],
+      "next_tasks": [
+        41
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_12"
+      ],
+      "next_tasks": [
+        42
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_12"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_13"
+      ],
+      "next_tasks": [
+        44
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_13"
+      ],
+      "next_tasks": [
+        45
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_13"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_14"
+      ],
+      "next_tasks": [
+        47
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_14"
+      ],
+      "next_tasks": [
+        48
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_14"
+      ],
+      "next_tasks": []
+    },
+    {
+      "type": "Scraping",
+      "parameters": {
+        "time": 6,
+        "ball_number": 8
+      },
+      "samples": [
+        "sample_15"
+      ],
+      "next_tasks": [
+        50
+      ]
+    },
+    {
+      "type": "XRD",
+      "parameters": {
+        "schema": "fast_10min"
+      },
+      "samples": [
+        "sample_15"
+      ],
+      "next_tasks": [
+        51
+      ]
+    },
+    {
+      "type": "Disposing",
+      "parameters": {},
+      "samples": [
+        "sample_15"
+      ],
+      "next_tasks": []
+    }
+  ]
+}

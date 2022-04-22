@@ -1,0 +1,105 @@
+digraph test {
+	0 [label=Dispensing]
+	0 -> 1
+	0 -> 26
+	0 -> 39
+	1 [label=Heating]
+	1 -> 2
+	1 -> 5
+	1 -> 8
+	1 -> 11
+	1 -> 14
+	1 -> 17
+	1 -> 20
+	1 -> 23
+	2 [label=Scraping]
+	2 -> 3
+	3 [label=XRD]
+	3 -> 4
+	4 [label=Disposing]
+	5 [label=Scraping]
+	5 -> 6
+	6 [label=XRD]
+	6 -> 7
+	7 [label=Disposing]
+	8 [label=Scraping]
+	8 -> 9
+	9 [label=XRD]
+	9 -> 10
+	10 [label=Disposing]
+	11 [label=Scraping]
+	11 -> 12
+	12 [label=XRD]
+	12 -> 13
+	13 [label=Disposing]
+	14 [label=Scraping]
+	14 -> 15
+	15 [label=XRD]
+	15 -> 16
+	16 [label=Disposing]
+	17 [label=Scraping]
+	17 -> 18
+	18 [label=XRD]
+	18 -> 19
+	19 [label=Disposing]
+	20 [label=Scraping]
+	20 -> 21
+	21 [label=XRD]
+	21 -> 22
+	22 [label=Disposing]
+	23 [label=Scraping]
+	23 -> 24
+	24 [label=XRD]
+	24 -> 25
+	25 [label=Disposing]
+	26 [label=HeatingWithAtmosphere]
+	26 -> 33
+	26 -> 27
+	26 -> 36
+	26 -> 30
+	27 [label=Scraping]
+	27 -> 28
+	28 [label=XRD]
+	28 -> 29
+	29 [label=Disposing]
+	30 [label=Scraping]
+	30 -> 31
+	31 [label=XRD]
+	31 -> 32
+	32 [label=Disposing]
+	33 [label=Scraping]
+	33 -> 34
+	34 [label=XRD]
+	34 -> 35
+	35 [label=Disposing]
+	36 [label=Scraping]
+	36 -> 37
+	37 [label=XRD]
+	37 -> 38
+	38 [label=Disposing]
+	39 [label=HeatingWithAtmosphere]
+	39 -> 40
+	39 -> 49
+	39 -> 43
+	39 -> 46
+	40 [label=Scraping]
+	40 -> 41
+	41 [label=XRD]
+	41 -> 42
+	42 [label=Disposing]
+	43 [label=Scraping]
+	43 -> 44
+	44 [label=XRD]
+	44 -> 45
+	45 [label=Disposing]
+	46 [label=Scraping]
+	46 -> 47
+	47 [label=XRD]
+	47 -> 48
+	48 [label=Disposing]
+	49 [label=Scraping]
+	49 -> 50
+	50 [label=XRD]
+	50 -> 51
+	51 [label=Disposing]
+}

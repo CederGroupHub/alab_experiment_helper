@@ -8,12 +8,12 @@ from alab_experiment_helper.sample import Sample
 def task(name) -> Callable[[Any], Any]:
     def _task(f):
         @wraps(f)
-        def wrapper(samples: Union[Sample, List[Sample]],
-                    **task_params: Any) -> Union[Sample, List[Sample]]:
+        def wrapper(samples: Union[Sample, List[Sample]], *task_args,
+                    **task_kwargs: Any) -> Union[Sample, List[Sample]]:
             """
             This function is called by the experiment helper to create a task.
             """
-            task_params = f(samples=samples, **task_params)
+            task_params = f(samples, *task_args, **task_kwargs)
 
             single_sample = False
             if isinstance(samples, Sample):

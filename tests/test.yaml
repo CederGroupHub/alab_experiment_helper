@@ -1,0 +1,330 @@
+name: test
+samples:
+- name: sample_0
+- name: sample_1
+- name: sample_2
+- name: sample_3
+- name: sample_4
+- name: sample_5
+- name: sample_6
+- name: sample_7
+- name: sample_8
+- name: sample_9
+- name: sample_10
+- name: sample_11
+- name: sample_12
+- name: sample_13
+- name: sample_14
+- name: sample_15
+tasks:
+- next_tasks:
+  - 1
+  - 18
+  - 27
+  parameters:
+    input_file_path: example.csv
+  samples:
+  - sample_0
+  - sample_1
+  - sample_2
+  - sample_3
+  - sample_4
+  - sample_5
+  - sample_6
+  - sample_7
+  - sample_8
+  - sample_9
+  - sample_10
+  - sample_11
+  - sample_12
+  - sample_13
+  - sample_14
+  - sample_15
+  type: Dispensing
+- next_tasks:
+  - 2
+  - 4
+  - 6
+  - 8
+  - 10
+  - 12
+  - 14
+  - 16
+  parameters:
+    setpoints:
+    - - 300
+      - 60
+    - - 300
+      - 600
+  samples:
+  - sample_0
+  - sample_1
+  - sample_2
+  - sample_3
+  - sample_4
+  - sample_5
+  - sample_6
+  - sample_7
+  type: Heating
+- next_tasks:
+  - 3
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_0
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_0
+  type: XRD
+- next_tasks:
+  - 5
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_1
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_1
+  type: XRD
+- next_tasks:
+  - 7
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_2
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_2
+  type: XRD
+- next_tasks:
+  - 9
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_3
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_3
+  type: XRD
+- next_tasks:
+  - 11
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_4
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_4
+  type: XRD
+- next_tasks:
+  - 13
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_5
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_5
+  type: XRD
+- next_tasks:
+  - 15
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_6
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_6
+  type: XRD
+- next_tasks:
+  - 17
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_7
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_7
+  type: XRD
+- next_tasks:
+  - 25
+  - 19
+  - 21
+  - 23
+  parameters:
+    atmosphere: Ar
+    flow_rate: 100
+    setpoints:
+    - - 300
+      - 60
+    - - 300
+      - 600
+  samples:
+  - sample_8
+  - sample_9
+  - sample_10
+  - sample_11
+  type: HeatingWithAtmosphere
+- next_tasks:
+  - 20
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_8
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_8
+  type: XRD
+- next_tasks:
+  - 22
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_9
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_9
+  type: XRD
+- next_tasks:
+  - 24
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_10
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_10
+  type: XRD
+- next_tasks:
+  - 26
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_11
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_11
+  type: XRD
+- next_tasks:
+  - 32
+  - 34
+  - 28
+  - 30
+  parameters:
+    atmosphere: N2
+    flow_rate: 100
+    setpoints:
+    - - 300
+      - 60
+    - - 300
+      - 600
+  samples:
+  - sample_12
+  - sample_13
+  - sample_14
+  - sample_15
+  type: HeatingWithAtmosphere
+- next_tasks:
+  - 29
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_12
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_12
+  type: XRD
+- next_tasks:
+  - 31
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_13
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_13
+  type: XRD
+- next_tasks:
+  - 33
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_14
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_14
+  type: XRD
+- next_tasks:
+  - 35
+  parameters:
+    ball_number: 8
+    time: 6
+  samples:
+  - sample_15
+  type: Scraping
+- next_tasks: []
+  parameters:
+    schema: fast_10min
+  samples:
+  - sample_15
+  type: XRD
