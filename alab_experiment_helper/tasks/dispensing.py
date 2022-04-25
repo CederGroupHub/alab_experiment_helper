@@ -13,7 +13,7 @@ def dispensing(
     """
     Dispense samples according to the given recipes in ``.csv`` format.
 
-    The number of input samples should be equal to the number of recipes * replicates.
+    The number of input samples must be equal to the number of recipes * replicates.
 
     Args:
         samples: the samples to be operated on, in this setting, each sample is a crucible

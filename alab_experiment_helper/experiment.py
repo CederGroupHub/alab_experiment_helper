@@ -67,10 +67,11 @@ class Experiment:
     def visualize(self, path: str, fmt: Literal["png", "jpg", "pdf", "svg"] = "png") -> None:
         import graphviz
 
+        path = Path(path)
         tasks = self.to_dict()["tasks"]
         graph = graphviz.Digraph(name=self.name, format=fmt)
         for i, task in enumerate(tasks):
             graph.node(str(i), task["type"])
             for next_task in task["next_tasks"]:
                 graph.edge(str(i), str(next_task))
-        graph.render(filename="figures", directory=path, view=True)
+        graph.render(filename=path.name, directory=path.parent.as_posix(), view=True)

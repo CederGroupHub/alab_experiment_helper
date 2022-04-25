@@ -70,7 +70,7 @@
     <div class="bd-toc-item active">
         <p class="caption">
  <span class="caption-text">
-  Quickstart
+  Introduction
  </span>
 </p>
 <ul class="current nav bd-sidenav">
@@ -238,6 +238,31 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#more-details">
+   More details
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generating-the-input-file">
+     Generating the input file
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualizing-the-experiment-graph">
+     Visualizing the experiment graph
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -250,6 +275,31 @@
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#more-details">
+   More details
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generating-the-input-file">
+     Generating the input file
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualizing-the-experiment-graph">
+     Visualizing the experiment graph
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -262,11 +312,17 @@
 to the experiment. Each sample will have some operations and finally, you can
 generate the input file, which can be submitted to the Alab Management software
 directly.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span> <span class="o">=</span> <span class="p">[</span><span class="n">experiment</span><span class="o">.</span><span class="n">add_sample</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;sample_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">)]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alab_experiment_helper</span> <span class="kn">import</span> <span class="n">Experiment</span>
+
+<span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="s2">&quot;test_experiment&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sample Declaration</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="p">[</span><span class="n">experiment</span><span class="o">.</span><span class="n">add_sample</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;sample_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">)]</span>
 <span class="n">sample_group_1</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>
 <span class="n">sample_group_2</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span>
 <span class="n">sample_group_3</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
 
+<span class="c1"># Task Declaration</span>
 <span class="n">dispensing</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">input_file_path</span><span class="o">=</span><span class="s2">&quot;example.csv&quot;</span><span class="p">)</span>
 
 <span class="n">heating</span><span class="p">(</span><span class="n">sample_group_1</span><span class="p">,</span> <span class="p">[[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">60</span><span class="p">],</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">600</span><span class="p">]])</span>
@@ -278,11 +334,76 @@ directly.</p>
     <span class="n">xrd</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="s2">&quot;fast_10min&quot;</span><span class="p">)</span>
     <span class="n">disposing</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
 
+<span class="c1"># Generate the input file with JSON format</span>
 <span class="n">experiment</span><span class="o">.</span><span class="n">generate_input_file</span><span class="p">(</span><span class="s2">&quot;test.json&quot;</span><span class="p">,</span> <span class="s2">&quot;json&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The task generated is something like this:</p>
 <img alt="_images/task_graph.png" src="_images/task_graph.png" />
+<div class="section" id="more-details">
+<h2>More details<a class="headerlink" href="#more-details" title="Permalink to this headline">¶</a></h2>
+<p>The whole package tries to make the task generation a declarative process, where each
+script should describe one <code class="docutils literal notranslate"><span class="pre">Experiment</span></code>. In the Alab Workflow System, an experiment
+is a list of samples to be made, where a sequence of tasks will be operated on the
+samples.</p>
+<p>The input file can be divided into two parts: <code class="docutils literal notranslate"><span class="pre">Sample</span> <span class="pre">Declaration</span></code> and <code class="docutils literal notranslate"><span class="pre">Task</span>
+<span class="pre">Declaration</span></code>.</p>
+<p>At the top of each script, you should declare an <code class="docutils literal notranslate"><span class="pre">Experiment</span></code> object, like this</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alab_experiment_helper</span> <span class="kn">import</span> <span class="n">Experiment</span>
+
+<span class="c1"># The name can be any names you like. But a clear and unique name will</span>
+<span class="c1"># help you find the information you want more easily later.</span>
+<span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;test_experiment&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then, you can add samples to the experiment, which is the <code class="docutils literal notranslate"><span class="pre">Sample</span> <span class="pre">Declaration</span></code> part</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># the name of samples should be unique, which you will refer to it</span>
+<span class="c1"># later in the task definition.</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="p">[</span><span class="n">experiment</span><span class="o">.</span><span class="n">add_sample</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;sample_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">)]</span>
+</pre></div>
+</div>
+<p>After declaring the samples, you need to specify which kind of tasks you want to do on
+each sample. The task will be conducted in order. The package will automatically record
+the order of the tasks based on the order of declaration. Each task is a function that
+receives one or a list of samples as well as many task specified parameters.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The available tasks can be found in the <a class="reference external" href="tasks.html">Tasks Overview</a> section.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alab_experiment_helper.tasks</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">dispensing</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">input_file_path</span><span class="o">=</span><span class="s2">&quot;example.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="generating-the-input-file">
+<h3>Generating the input file<a class="headerlink" href="#generating-the-input-file" title="Permalink to this headline">¶</a></h3>
+<p>Finally, you can choose to generate the input file and save it to a certain path. Currently,
+we support two formats: <code class="docutils literal notranslate"><span class="pre">json</span></code> and <code class="docutils literal notranslate"><span class="pre">yaml</span></code>. Both files can be submitted to the workflow
+software without any problem.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># first argument: the path to save the input file</span>
+<span class="c1"># second argument: the format of the input file, can be either ``json`` or ``yaml``</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">generate_input_file</span><span class="p">(</span><span class="s2">&quot;test.json&quot;</span><span class="p">,</span> <span class="s2">&quot;json&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="visualizing-the-experiment-graph">
+<h3>Visualizing the experiment graph<a class="headerlink" href="#visualizing-the-experiment-graph" title="Permalink to this headline">¶</a></h3>
+<p>As we talked about before, the tasks have orders. Internally, we represent the tasks as
+a directed graph. The graph can be visualized by using the <code class="docutils literal notranslate"><span class="pre">visualize</span></code> function of
+<code class="docutils literal notranslate"><span class="pre">Experiment</span></code> object.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before you use this function, you need to install <code class="docutils literal notranslate"><span class="pre">graphviz</span></code>, which you can
+find useful information in the <a class="reference external" href="http://www.graphviz.org/">graphviz website</a>.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># The first argument is the path to save the graph image</span>
+<span class="c1"># The second argument is the format of the image, can be</span>
+<span class="c1"># ``png``, ``svg``, ``jpg`` or ``pdf``</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="s2">&quot;figure.png&quot;</span><span class="p">,</span> <span class="s2">&quot;png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 

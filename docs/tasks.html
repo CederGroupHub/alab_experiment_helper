@@ -70,7 +70,7 @@
     <div class="bd-toc-item active">
         <p class="caption">
  <span class="caption-text">
-  Quickstart
+  Introduction
  </span>
 </p>
 <ul class="current nav bd-sidenav">
@@ -356,7 +356,7 @@ required as the input file for Labman system.</p>
 <dt>
 <code class="sig-name descname">dispensing</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">samples</span></em>, <em class="sig-param"><span class="n">input_file_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/alab_experiment_helper/tasks/dispensing.html#dispensing"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Dispense samples according to the given recipes in <code class="docutils literal notranslate"><span class="pre">.csv</span></code> format.</p>
-<p>The number of input samples should be equal to the number of recipes * replicates.</p>
+<p>The number of input samples must be equal to the number of recipes * replicates.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -398,7 +398,18 @@ is 5 °C/min.</p></li>
 <dl class="py function">
 <dt>
 <code class="sig-name descname">heating</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">samples</span></em>, <em class="sig-param"><span class="n">setpoints</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/alab_experiment_helper/tasks/heating.html#heating"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
+<dd><p>The heating task, where the function takes a list of setpoints. Each setpoint is a list of two
+values, the first one is the temperature (°C) and the second one is the duration (minutes), which
+is similar to the heating profile configuration in the real furnace.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>samples</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="alab_experiment_helper.sample.html#alab_experiment_helper.sample.Sample" title="alab_experiment_helper.sample.Sample"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sample</span></code></a>]) – The samples to be heated</p></li>
+<li><p><strong>setpoints</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]) – The setpoints to be used for heating.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </div>
 <div class="section" id="heating-with-atmosphere">
@@ -408,7 +419,9 @@ atmosphere and flow rate, this operation has same parameter as <code class="docu
 <dl class="py function">
 <dt>
 <code class="sig-name descname">heating_with_atmosphere</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">samples</span></em>, <em class="sig-param"><span class="n">setpoints</span></em>, <em class="sig-param"><span class="n">atmosphere</span></em>, <em class="sig-param"><span class="n">flow_rate</span><span class="o">=</span><span class="default_value">100</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/alab_experiment_helper/tasks/heating_with_atmosphere.html#heating_with_atmosphere"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Annealing in the tube furnaces. You can select the atmosphere for heating. Four samples at a time for heating.</p>
+<dd><p>Annealing in the tube furnaces. You can select the atmosphere for heating. Four samples at a time for heating.
+The parameter setpoints is a list of [temperature, duration] pairs. The temperature is in °C and the duration
+is in minutes. The range of flow_rate should be between 0 and 1000.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -450,7 +463,7 @@ and the <code class="docutils literal notranslate"><span class="pre">ball_number
 <dl class="py function">
 <dt>
 <code class="sig-name descname">xrd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sample</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">schema</span><span class="o">=</span><span class="default_value">'fast_10min'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/alab_experiment_helper/tasks/xrd.html#xrd"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Do xrd on the given sample with the given <code class="docutils literal notranslate"><span class="pre">schema</span></code>.</p>
+<dd><p>Do xrd on the given sample with the given <code class="docutils literal notranslate"><span class="pre">schema</span></code>. The schema is either <code class="docutils literal notranslate"><span class="pre">fast_10min</span></code> or <code class="docutils literal notranslate"><span class="pre">slow_30min</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

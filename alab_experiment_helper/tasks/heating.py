@@ -41,6 +41,15 @@ def simple_heating(samples: List[Sample], temperature: int, duration_hour: float
 
 @task("Heating")
 def heating(samples: List[Sample], setpoints: List[List[int]]):
+    """
+    The heating task, where the function takes a list of setpoints. Each setpoint is a list of two
+    values, the first one is the temperature (°C) and the second one is the duration (minutes), which
+    is similar to the heating profile configuration in the real furnace.
+
+    Args:
+        samples: The samples to be heated
+        setpoints: The setpoints to be used for heating.
+    """
     if len(samples) > 8:
         raise ValueError("Heating task can only be applied to 4 samples at a time.")
 

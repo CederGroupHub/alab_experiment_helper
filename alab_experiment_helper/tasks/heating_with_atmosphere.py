@@ -9,6 +9,8 @@ def heating_with_atmosphere(samples: List[Sample], setpoints: List[List[int]],
                             atmosphere: Literal["Ar", "N2", "vacuum"], flow_rate: float = 100):
     """
     Annealing in the tube furnaces. You can select the atmosphere for heating. Four samples at a time for heating.
+    The parameter setpoints is a list of [temperature, duration] pairs. The temperature is in °C and the duration
+    is in minutes. The range of flow_rate should be between 0 and 1000.
 
     Args:
         samples: the samples to heat

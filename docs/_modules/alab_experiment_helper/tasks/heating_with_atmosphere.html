@@ -68,7 +68,7 @@
     <div class="bd-toc-item active">
         <p class="caption">
  <span class="caption-text">
-  Quickstart
+  Introduction
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -249,6 +249,8 @@
                             <span class="n">atmosphere</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;Ar&quot;</span><span class="p">,</span> <span class="s2">&quot;N2&quot;</span><span class="p">,</span> <span class="s2">&quot;vacuum&quot;</span><span class="p">],</span> <span class="n">flow_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">100</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Annealing in the tube furnaces. You can select the atmosphere for heating. Four samples at a time for heating.</span>
+<span class="sd">    The parameter setpoints is a list of [temperature, duration] pairs. The temperature is in °C and the duration</span>
+<span class="sd">    is in minutes. The range of flow_rate should be between 0 and 1000.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        samples: the samples to heat</span>

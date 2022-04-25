@@ -6,9 +6,12 @@
 Welcome to Alab Experiment Helper's documentation!
 ==================================================
 
+This package is used for generating the input files for the Alab Automated Experiment software.
+About how to use this package, please refer to `Installation <installation.html>`_ and `Quickstart <quickstart.html>`_.
+
 .. toctree::
    :maxdepth: -1
-   :caption: Quickstart
+   :caption: Introduction
    :hidden:
 
    Installation<installation>
@@ -21,11 +24,3 @@ Welcome to Alab Experiment Helper's documentation!
 
    API Docs<modules>
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
