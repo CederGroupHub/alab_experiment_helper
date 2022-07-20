@@ -5,8 +5,25 @@ from alab_experiment_helper.tasks.base import task
 
 
 @task("Heating")
-def simple_heating(samples: List[Sample], temperature: int, duration_hour: float,
-                   ramp_rate_per_min: int = 5):
+def alab_heating(
+    samples: List[Sample], heating_time: float, heating_temperature: float
+):
+    """
+    Heating the sample
+    """
+    return {
+        "heating_time": heating_time,
+        "heating_temperature": heating_temperature,
+    }
+
+
+@task("Heating")
+def simple_heating(
+    samples: List[Sample],
+    temperature: int,
+    duration_hour: float,
+    ramp_rate_per_min: int = 5,
+):
     """
     Simple heating task. The furnace will be ramped up with the given ``ramp_temp_per_min`` and
     then hold at this temperature for the given ``duration_hour`` at given ``temperature``. After
@@ -34,7 +51,7 @@ def simple_heating(samples: List[Sample], temperature: int, duration_hour: float
     return {
         "setpoints": [
             [temperature, temperature / ramp_rate_per_min],
-            [temperature, duration_hour * 60.],
+            [temperature, duration_hour * 60.0],
         ],
     }
 
@@ -53,6 +70,4 @@ def heating(samples: List[Sample], setpoints: List[List[int]]):
     if len(samples) > 8:
         raise ValueError("Heating task can only be applied to 4 samples at a time.")
 
-    return {
-        "setpoints": setpoints
-    }
+    return {"setpoints": setpoints}

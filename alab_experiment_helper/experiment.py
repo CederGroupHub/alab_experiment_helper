@@ -15,14 +15,19 @@ class Experiment:
         self._samples.append(sample)
         return sample
 
-    def add_task(self, task_id: str, task_name: str,
-                 task_params: Dict[str, Any], samples: List[Sample]) -> None:
+    def add_task(
+        self,
+        task_id: str,
+        task_name: str,
+        task_params: Dict[str, Any],
+        samples: List[Sample],
+    ) -> None:
         if task_id in self._tasks:
             return
         self._tasks[task_id] = {
             "type": task_name,
             "parameters": task_params,
-            "samples": [sample.name for sample in samples]
+            "samples": [sample.name for sample in samples],
         }
 
     def to_dict(self):
@@ -37,15 +42,17 @@ class Experiment:
                 task = self._tasks[task_id]
                 if task_id not in task_ids:
                     task_ids[task_id] = len(tasks)
-                    task["next_tasks"] = set()
+                    # task["next_tasks"] = set()
+                    task["prev_tasks"] = set()
                     tasks.append(task)
                 if last_task_id is not None:
-                    tasks[task_ids[last_task_id]]["next_tasks"].add(task_ids[task_id])
-
+                    # tasks[task_ids[last_task_id]]["next_tasks"].add(task_ids[task_id])
+                    task["prev_tasks"].add(task_ids[last_task_id])
                 last_task_id = task_id
 
         for task in tasks:
-            task["next_tasks"] = list(task["next_tasks"])
+            # task["next_tasks"] = list(task["next_tasks"])
+            task["prev_tasks"] = list(task["prev_tasks"])
 
         return {
             "name": self.name,
@@ -53,7 +60,9 @@ class Experiment:
             "tasks": tasks,
         }
 
-    def generate_input_file(self, filename: str, fmt: Literal["json", "yaml"] = "json") -> None:
+    def generate_input_file(
+        self, filename: str, fmt: Literal["json", "yaml"] = "json"
+    ) -> None:
         with Path(filename).open("w", encoding="utf-8") as f:
             if fmt == "json":
                 import json
@@ -64,7 +73,9 @@ class Experiment:
 
                 yaml.dump(self.to_dict(), f, default_flow_style=False, indent=2)
 
-    def visualize(self, path: str, fmt: Literal["png", "jpg", "pdf", "svg"] = "png") -> None:
+    def visualize(
+        self, path: str, fmt: Literal["png", "jpg", "pdf", "svg"] = "png"
+    ) -> None:
         import graphviz
 
         path = Path(path)
