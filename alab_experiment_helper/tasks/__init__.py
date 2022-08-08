@@ -6,3 +6,4 @@ from .xrd import xrd
 from .disposing import disposing
 from .starting import starting
 from .ending import ending
+from .recover_powder import recover_powder
