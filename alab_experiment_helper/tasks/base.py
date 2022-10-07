@@ -8,7 +8,7 @@ from alab_experiment_helper.sample import Sample
 _TFunc = TypeVar("_TFunc", bound=Callable[..., Any])
 
 
-def task(name):  # -> Callable[[Any], Any]:
+def task(name:str, capacity:int):  # -> Callable[[Any], Any]:
     def _task(f) -> _TFunc:
         @wraps(f)
         def wrapper(
@@ -17,12 +17,16 @@ def task(name):  # -> Callable[[Any], Any]:
             """
             This function is called by the experiment helper to create a task.
             """
-            task_params = f(samples, *task_args, **task_kwargs)
+            task_params = f(*task_args, **task_kwargs)
 
             single_sample = False
             if isinstance(samples, Sample):
                 samples = [samples]
                 single_sample = True
+            if len(samples) > capacity:
+                raise ValueError(
+                    f"Task {name} can only handle {capacity} samples, but got {len(samples)} samples!"
+                )
 
             experiment = samples[0].experiment
             task_id = str(uuid.uuid4())

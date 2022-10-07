@@ -4,9 +4,8 @@ from alab_experiment_helper.sample import Sample
 from alab_experiment_helper.tasks.base import task
 
 
-@task("HeatingWithAtmosphere")
+@task("HeatingWithAtmosphere", 4)
 def heating_with_atmosphere(
-    samples: List[Sample],
     setpoints: List[List[int]],
     atmosphere: Literal["Ar", "N2"],
     flow_rate_ccm: float = 100,
@@ -23,8 +22,8 @@ def heating_with_atmosphere(
         atmosphere: the gas atmosphere for the operation. You can choose between ``Ar``, ``N2`` and ``vacuum``.
         flow_rate: the flow rate of the gas in the furnace.
     """
-    if len(samples) > 4:
-        raise ValueError("The number of samples should be <= 4")
+    # if len(samples) > 4:
+    #     raise ValueError("The number of samples should be <= 4")
     if atmosphere not in ["Ar", "N2", "vacuum"]:
         raise ValueError("The atmosphere should be either ``Ar``, ``N2`` or ``vacuum``")
     if flow_rate_ccm < 0 or flow_rate_ccm > 1000:
@@ -40,9 +39,8 @@ def heating_with_atmosphere(
     }
 
 
-@task("HeatingWithAtmosphere")
+@task("HeatingWithAtmosphere", 4)
 def simple_heating_with_atmosphere(
-    samples: List[Sample],
     heating_time_minutes: float,
     heating_temperature_celsius: float,
     atmosphere: Literal["Ar", "N2"],
@@ -61,8 +59,8 @@ def simple_heating_with_atmosphere(
         atmosphere: the gas atmosphere for the operation. You can choose between ``Ar``, ``N2`` and ``vacuum``.
         flow_rate: the flow rate of the gas in the furnace.
     """
-    if len(samples) > 4:
-        raise ValueError("The number of samples should be <= 4")
+    # if len(samples) > 4:
+    #     raise ValueError("The number of samples should be <= 4")
     if atmosphere not in ["Ar", "N2"]:
         raise ValueError("The atmosphere should be either ``Ar``, ``N2`` or ``vacuum``")
     if flow_rate_ccm < 0 or flow_rate_ccm > 1000:  # TODO check the bounds. units?

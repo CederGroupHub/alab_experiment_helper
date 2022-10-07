@@ -4,9 +4,8 @@ from alab_experiment_helper.sample import Sample
 from alab_experiment_helper.tasks.base import task
 
 
-@task("Heating")
+@task("Heating", 8)
 def alab_heating(
-    samples: List[Sample],
     heating_time_minutes: float,
     heating_temperature_celsius: float,
 ):

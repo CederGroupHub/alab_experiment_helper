@@ -5,9 +5,8 @@ from alab_experiment_helper.sample import Sample
 from alab_experiment_helper.tasks.base import task
 
 
-@task("Dispensing")
+@task("Dispensing", 1)
 def dispensing(
-        samples: List[Sample],
         input_file_path: Union[str, Path],
 ):
     """
