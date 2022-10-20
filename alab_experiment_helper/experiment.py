@@ -21,6 +21,7 @@ class Experiment:
         task_name: str,
         task_params: Dict[str, Any],
         samples: List[Sample],
+        capacity: int,
     ) -> None:
         if task_id in self._tasks:
             return
@@ -28,6 +29,7 @@ class Experiment:
             "type": task_name,
             "parameters": task_params,
             "samples": [sample.name for sample in samples],
+            "capacity": capacity,
         }
 
     def to_dict(self):
@@ -83,6 +85,6 @@ class Experiment:
         graph = graphviz.Digraph(name=self.name, format=fmt)
         for i, task in enumerate(tasks):
             graph.node(str(i), task["type"])
-            for next_task in task["next_tasks"]:
-                graph.edge(str(i), str(next_task))
+            for prev_task in task["prev_tasks"]:
+                graph.edge(str(prev_task), str(i))
         graph.render(filename=path.name, directory=path.parent.as_posix(), view=True)

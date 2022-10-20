@@ -1,13 +1,19 @@
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Dict
 
 from alab_experiment_helper.sample import Sample
 from alab_experiment_helper.tasks.base import task
 
 
-@task("Dispensing", 1)
+@task("Dispensing", 16)
 def dispensing(
-        input_file_path: Union[str, Path],
+    powder_dispenses: Dict[str, float],
+    heating_duration: int = 300,
+    ethanol_volume: int = 10000,
+    transfer_volume: int = 8000,
+    mixer_speed: int = 2000,
+    mixer_duration: int = 900,
+    min_transfer_mass: int = 5,
 ):
     """
     Dispense samples according to the given recipes in ``.csv`` format.
@@ -15,16 +21,22 @@ def dispensing(
     The number of input samples must be equal to the number of recipes * replicates.
 
     Args:
-        samples: the samples to be operated on, in this setting, each sample is a crucible
-        input_file_path: the path to the input file, which is a csv file.
+        powder_dispenses: A dictionary of powder names and their dispense masses.
+        heating_duration: The duration of the heating step in seconds.
+        ethanol_volume: The volume of ethanol to dispense in microliters.
+        transfer_volume: The volume of ethanol to transfer in microliters.
+        mixer_speed: The speed of the mixer in RPM.
+        mixer_duration: The duration of the mixer in seconds.
+        min_transfer_mass: The minimum mass of powder to transfer in milligrams.
+
     """
-    if not isinstance(input_file_path, Path):
-        input_file_path = Path(input_file_path)
-    # with input_file_path.open("r", encoding="utf-8") as csvfile:
-    #     reader = csv.DictReader(csvfile)
-    #     total_sample_num = sum(row["replicates"] for row in reader)
-    #     if len(samples) != total_sample_num:
-    #         raise ValueError("Unmatched number of samples and recipes!")
+
     return {
-        "input_file_path": input_file_path.as_posix(),
+        "powder_dispenses": powder_dispenses,
+        "heating_duration": heating_duration,
+        "ethanol_volume": ethanol_volume,
+        "transfer_volume": transfer_volume,
+        "mixer_speed": mixer_speed,
+        "mixer_duration": mixer_duration,
+        "min_transfer_mass": min_transfer_mass,
     }

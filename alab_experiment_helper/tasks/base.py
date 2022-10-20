@@ -43,6 +43,7 @@ def task(name: str, capacity: int):  # -> Callable[[Any], Any]:
                     task_name=name,
                     task_params=task_params,
                     samples=batch_samples,
+                    capacity=capacity,
                 )
                 for sample in batch_samples:
                     sample.add_task(task_id)
