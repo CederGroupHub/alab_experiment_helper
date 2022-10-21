@@ -1,2 +1,5 @@
 pyyaml >= 5.0
 graphviz >= 0.20
+git+https://github.com/idocx/ReactionCompleter
+git+https://github.com/idocx/MaterialParser
+pydantic >= 1.10.2
