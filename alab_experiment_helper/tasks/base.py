@@ -1,4 +1,4 @@
-import uuid
+from bson import ObjectId
 from functools import wraps
 from typing import Any, List, TypeVar, Union, Callable
 from math import ceil
@@ -36,7 +36,7 @@ def task(name: str, capacity: int):  # -> Callable[[Any], Any]:
             # if we have more samples than capacity, we need to split them into multiple tasks
             batches = ceil(len(samples) / capacity)
             for i in range(batches):
-                task_id = str(uuid.uuid4())
+                task_id = ObjectId()
                 batch_samples = samples[i * capacity : (i + 1) * capacity]
                 experiment.add_task(
                     task_id=task_id,
