@@ -1,25 +1,27 @@
-from typing import Any, Callable, List
+from typing import Any, Callable, List, Dict
 import networkx as nx
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-from alab_experiment_helper.experiment import Experiment
+from alab_experiment_helper.batch import Batch
+import datetime
 
 ### graph manipulation functions
-def experiment_to_digraph(experiment: Experiment) -> nx.DiGraph:
+def experiment_to_digraph(batch: Batch) -> nx.DiGraph:
+    exp_dict = batch.to_dict()  # generate task order
     g = nx.DiGraph()
 
-    for task_id, task in experiment._tasks.items():
+    for task in exp_dict["tasks"]:
         g.add_node(
-            task_id,
+            task["_id"],
             type=task["type"],
             parameters=task["parameters"],
             capacity=task["capacity"],
             samples=task["samples"],
             parameters_per_sample={s: task["parameters"] for s in task["samples"]},
         )
-        for prev_task_index in task["prev_tasks"]:
-            prev_task_id = list(experiment._tasks.keys())[prev_task_index]
-            g.add_edge(prev_task_id, task_id)
+        for prev_task_id in task["prev_tasks"]:
+            # prev_task_id = exp_dict["tasks"][prev_task_index]["_id"]
+            g.add_edge(prev_task_id, task["_id"])
     return g
 
 
@@ -66,7 +68,10 @@ def plot_task_graph(graph, pos_function=None, ax=None):
         node_colors.append(color_key[node["type"]])
 
     if pos_function is None:
-        pos = nx.spring_layout(graph)
+        try:
+            pos = nx.nx_agraph.graphviz_layout(graph, prog="dot")
+        except:
+            pos = nx.spring_layout(graph)
     else:
         pos = pos_function(graph)
     nx.draw(
@@ -84,6 +89,52 @@ def plot_task_graph(graph, pos_function=None, ax=None):
         for l, c in color_key.items()
     ]
     plt.legend(handles=legend_elements, bbox_to_anchor=(1.05, 1), loc="upper left")
+
+
+def sampledict_to_graph(sampledict: Dict) -> nx.DiGraph:
+    graph = nx.DiGraph()  #
+    for task in sampledict["tasks"]:
+        graph.add_node(
+            task["_id"],
+            type=task["type"],
+            capacity=task["capacity"],
+            samples=[sampledict["_id"]],
+            parameters=task["parameters"],
+            parameters_per_sample={sampledict["_id"]: task["parameters"]},
+        )
+    for task0, task1 in zip(sampledict["tasks"], sampledict["tasks"][1:]):
+        graph.add_edge(task0["_id"], task1["_id"])
+    return graph
+
+
+def samples_in_graph(graph: nx.DiGraph) -> List:
+    """Returns a list of all samples in the graph.
+
+    Args:
+        graph (nx.DiGraph): graph to check
+
+    Returns:
+        List: list of all samples in the graph
+    """
+    samples = set()
+    for _, node in graph.nodes(data=True):
+        samples.update(node["samples"])
+    return list(samples)
+
+
+def is_graph_saturated(graph: nx.DiGraph) -> bool:
+    """Check if all nodes within the graph are at maximum capacity (ie number of samples == capacity).
+
+    Args:
+        graph (nx.DiGraph): graph to check
+
+    Returns:
+        bool: True if all nodes are saturated, False otherwise
+    """
+    for _, node in graph.nodes(data=True):
+        if len(node["samples"]) < node["capacity"]:
+            return False
+    return True
 
 
 ### Batching functions
@@ -145,6 +196,7 @@ def merge_nodes(
 
         if len(replace) == 0:
             continue
+
         for replace_id in replace:
             for prev in parent_graph.predecessors(replace_id):
                 parent_graph.add_edge(prev, reference_node_id)

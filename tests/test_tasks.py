@@ -1,15 +1,15 @@
 import pytest
 
-from alab_experiment_helper import Experiment
+from alab_experiment_helper import Batch
 from alab_experiment_helper.tasks import *
 
 
 @pytest.fixture
 def experiment():
-    return Experiment("test")
+    return Batch("test")
 
 
-def test_tasks(experiment: Experiment):
+def test_tasks(experiment: Batch):
     samples = [experiment.add_sample(name="sample_" + str(i)) for i in range(16)]
     sample_group_1 = samples[0:8]
     sample_group_2 = samples[8:12]

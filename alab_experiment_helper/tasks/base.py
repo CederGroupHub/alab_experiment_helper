@@ -1,9 +1,49 @@
-from bson import ObjectId
+from abc import ABC, abstractmethod
 from functools import wraps
-from typing import Any, List, TypeVar, Union, Callable
 from math import ceil
-from alab_experiment_helper.experiment import Experiment
+from typing import Any, Callable, Dict, List, TypeVar, Union
+from bson import ObjectId
+from alab_experiment_helper.batch import Batch
 from alab_experiment_helper.sample import Sample
+
+# from functools import wraps
+# from typing import Any, List, TypeVar, Union, Callable
+# from math import ceil
+# from alab_experiment_helper.experiment import Experiment
+# from alab_experiment_helper.sample import Sample
+
+
+# class BaseTask(ABC):
+#     def __init__(self, name: str, capacity: int, _id: ObjectId = None):
+#         self.name = name
+#         self.capacity = capacity
+#         if _id is None:
+#             self._id = ObjectId()
+#         else:
+#             self._id = _id
+
+#     @abstractmethod
+#     def get_parameters(self) -> Dict[str, Any]:
+#         """This should return a dictionary with any parameters needed to run the task.
+
+#         For example, a heating task might return:
+#         {
+#             "temperature_celsiue": 100,
+#             "duration_minutes": 60,
+#         }
+
+#         Returns:
+#             Dict[str, Any]: dictionary of task parameters
+#         """
+#         return {}
+
+#     def to_dict(self) -> Dict[str, Any]:
+#         return {
+#             "_id": self._id,
+#             "name": self.name,
+#             "capacity": self.capacity,
+#             "parameters": self.get_parameters(),
+#         }
 
 
 _TFunc = TypeVar("_TFunc", bound=Callable[..., Any])
@@ -20,35 +60,15 @@ def task(name: str, capacity: int):  # -> Callable[[Any], Any]:
             """
             task_params = f(*task_args, **task_kwargs)
 
-            single_sample = False
             if isinstance(samples, Sample):
                 samples = [samples]
-                single_sample = True
-            # if len(samples) > capacity:
-            #     raise ValueError(
-            #         f"Task {name} can only handle {capacity} samples, but got {len(samples)} samples!"
-            #     )
-
-            experiment: Experiment = samples[
-                0
-            ].experiment  # assume all samples fall under same experiment
-
-            # if we have more samples than capacity, we need to split them into multiple tasks
-            batches = ceil(len(samples) / capacity)
-            for i in range(batches):
-                task_id = ObjectId()
-                batch_samples = samples[i * capacity : (i + 1) * capacity]
-                experiment.add_task(
-                    task_id=task_id,
+            for sample in samples:
+                sample.add_task(
+                    task_id=str(ObjectId()),
                     task_name=name,
-                    task_params=task_params,
-                    samples=batch_samples,
+                    task_parameters=task_params,
                     capacity=capacity,
                 )
-                for sample in batch_samples:
-                    sample.add_task(task_id)
-
-            return samples if not single_sample else samples[0]
 
         return wrapper
 

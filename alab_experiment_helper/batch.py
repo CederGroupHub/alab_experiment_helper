@@ -4,14 +4,14 @@ from typing import List, Dict, Any, Literal
 from .sample import Sample
 
 
-class Experiment:
+class Batch:
     def __init__(self, name: str):
         self.name = name
         self._samples: List[Sample] = []
         self._tasks: Dict[str, Dict[str, Any]] = {}
 
     def add_sample(self, name: str) -> Sample:
-        sample = Sample(name, experiment=self)
+        sample = Sample(name, batch=self)
         self._samples.append(sample)
         return sample
 
@@ -42,6 +42,7 @@ class Experiment:
             last_task_id = None
             for task_id in sample.tasks:
                 task = self._tasks[task_id]
+                task["_id"] = str(task_id)
                 if task_id not in task_ids:
                     task_ids[task_id] = len(tasks)
                     # task["next_tasks"] = set()
@@ -75,16 +76,16 @@ class Experiment:
 
                 yaml.dump(self.to_dict(), f, default_flow_style=False, indent=2)
 
-    def visualize(
-        self, path: str, fmt: Literal["png", "jpg", "pdf", "svg"] = "png"
-    ) -> None:
-        import graphviz
+    # def visualize(
+    #     self, path: str, fmt: Literal["png", "jpg", "pdf", "svg"] = "png"
+    # ) -> None:
+    #     import graphviz
 
-        path = Path(path)
-        tasks = self.to_dict()["tasks"]
-        graph = graphviz.Digraph(name=self.name, format=fmt)
-        for i, task in enumerate(tasks):
-            graph.node(str(i), task["type"])
-            for prev_task in task["prev_tasks"]:
-                graph.edge(str(prev_task), str(i))
-        graph.render(filename=path.name, directory=path.parent.as_posix(), view=True)
+    #     path = Path(path)
+    #     tasks = self.to_dict()["tasks"]
+    #     graph = graphviz.Digraph(name=self.name, format=fmt)
+    #     for i, task in enumerate(tasks):
+    #         graph.node(str(i), task["type"])
+    #         for prev_task in task["prev_tasks"]:
+    #             graph.edge(str(prev_task), str(i))
+    #     graph.render(filename=path.name, directory=path.parent.as_posix(), view=True)

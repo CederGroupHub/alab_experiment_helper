@@ -1,7 +1,6 @@
 from pathlib import Path
 from typing import List, Union, Dict
 
-from alab_experiment_helper.sample import Sample
 from alab_experiment_helper.tasks.base import task
 
 
