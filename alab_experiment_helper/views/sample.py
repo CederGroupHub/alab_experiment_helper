@@ -75,6 +75,10 @@ class SampleView:
 
     def set_status(self, sample_id: ObjectId, status: SampleStatus):
         """Changes the status of a sample."""
+        if status == SampleStatus.RUNNING:
+            raise ValueError(
+                "Please use the .set_as_running() method to set sample status to running -- we need to add the experiment id!"
+            )
         result = self._collection.update_one(
             {"_id": sample_id},
             {"$set": {"status": status.value, "updated_at": datetime.datetime.now()}},
@@ -82,10 +86,18 @@ class SampleView:
         if result.modified_count == 0:
             raise ValueError("No sample with id {} found".format(sample_id))
 
-    def mark_as_running(
+    def set_as_running(
         self, sample_id: ObjectId, alab_management_experiment_id: ObjectId
     ):
-        """Marks a sample as running and record the experiment id corresponding to the sample's batch on alab_management."""
+        """Marks a sample as running and record the experiment id corresponding to the sample's batch on alab_management.
+
+        Args:
+            sample_id (ObjectId): ObjectId corresponding to the sample. This id will also be used in alab_management's internal database
+            alab_management_experiment_id (ObjectId): ObjectId corresponding to the "experiment" (ie batch) on alab_management. This should be returned by the alab_management api upon experiment submission.
+
+        Raises:
+            ValueError: Invalid sample id
+        """ """"""
         result = self._collection.update_one(
             {"_id": sample_id},
             {

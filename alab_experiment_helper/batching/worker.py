@@ -32,11 +32,13 @@ class QueueWorker:
     def run(self):
         while True:
             self.process_pending_samples()
-            self.look_for_completed_samples()
+            self.process_completed_samples()
+            self.process_sample_data()
             time.sleep(self.PROCESSING_INTERVAL)
 
     ### Batching and starting samples that are pending in the queue
     def process_pending_samples(self):
+        """Finds all samples that have not been started yet. Attempts to batch them. Any batches that are either fully saturated or contain samples older than self.MAX_WAIT_TIME_SECONDS are sent to alab_management to be executed."""
         pending = self._sampleview.get_pending()
         pending_graphs = [sampledict_to_graph(s) for s in pending]
         batched_graphs = self._batch_graphs(pending_graphs)
@@ -111,7 +113,7 @@ class QueueWorker:
             print(f"Error sending experiment to alab_management: {e}")
         else:
             for sample in experiment["samples"]:
-                self._sampleview.mark_as_running(
+                self._sampleview.set_as_running(
                     sample_id=ObjectId(sample["_id"]),
                     alab_management_experiment_id=ObjectId(
                         alab_management_experiment_id
@@ -127,6 +129,9 @@ class QueueWorker:
                 f"Failed to send experiment to management server. Server response: {response.text}"
             )
         resp_json = response.json()
+        print(
+            f"Started experiment {resp_json['data']['exp_id']} containing {len(experiment['samples'])} samples at {datetime.datetime.now()}"
+        )
         return ObjectId(resp_json["data"]["exp_id"])
 
     def _build_alabmanagement_experiment(self, graph: nx.DiGraph) -> Dict[str, Any]:
@@ -196,8 +201,8 @@ class QueueWorker:
 
     ### Handling completed or failed samples
 
-    def look_for_completed_samples(self):
-        """Process samples that have been completed by alabmanagement."""
+    def process_completed_samples(self):
+        """Identifies all pending experiments that are completed by alab_management. Samples contained in these experiments are marked as complete + ready to be moved into permanent data storage."""
         samples = self._sampleview.get_running()
 
         samples_per_experiment = {}
@@ -218,8 +223,21 @@ class QueueWorker:
             resp_json = response.json()
             if resp_json["status"] == "COMPLETED":
                 for sample_id in samples:
-                    self._digest_sample_for_alabdata(sample_id)
-                    self._sampleview.set_status(sample_id, SampleStatus.COMPLETE)
+                    self._sampleview.set_status(
+                        sample_id, SampleStatus.READYFORDATABASE
+                    )
+                    print(f"Sample {sample_id} completed.")
+
+    def process_sample_data(self):
+        """Handles the transfer of sample data to the permanent database."""
+        samples = self._sampleview.get_readyfordatabase()
+        for sample in samples:
+            self._digest_sample_for_alabdata(sample)
+            print(f"Sample {sample['_id']} moved to permanent database")
+            self._sampleview.set_status(
+                sample_id=sample["_id"], status=SampleStatus.COMPLETE
+            )
+        return
 
     def _digest_sample_for_alabdata(self, sample_id: ObjectId):
         """Digest a sample for alabdata.
