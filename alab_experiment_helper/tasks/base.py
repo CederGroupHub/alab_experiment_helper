@@ -50,7 +50,7 @@ _TFunc = TypeVar("_TFunc", bound=Callable[..., Any])
 
 
 def task(
-    name: str, capacity: int, type: Literal["Action", "Measurement"]
+    name: str, capacity: int
 ):  # -> Callable[[Any], Any]:
     def _task(f) -> _TFunc:
         @wraps(f)

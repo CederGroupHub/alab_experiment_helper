@@ -114,7 +114,7 @@ class QueueWorker:
         else:
             for sample in experiment["samples"]:
                 self._sampleview.set_as_running(
-                    sample_id=ObjectId(sample["_id"]),
+                    sample_id=ObjectId(sample["sample_id"]),
                     alab_management_experiment_id=ObjectId(
                         alab_management_experiment_id
                     ),
@@ -164,7 +164,7 @@ class QueueWorker:
                 experiment["samples"].append(
                     {
                         "name": unique_sample_name,
-                        "_id": str(sample_id),
+                        "sample_id": str(sample_id),
                     }
                 )
 
@@ -173,7 +173,7 @@ class QueueWorker:
                 "type": node["type"],
                 "prev_tasks": list(graph.predecessors(task_id)),
                 "samples": [_already_added_sampleids[s] for s in node["samples"]],
-                "_id": task_id,
+                "task_id": str(task_id),
             }
             if node["type"] in ["Dispensing"]:
                 task_entry["parameters"] = node["parameters_per_sample"]
