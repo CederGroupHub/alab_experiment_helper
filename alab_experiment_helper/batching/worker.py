@@ -173,6 +173,7 @@ class QueueWorker:
                 "type": node["type"],
                 "prev_tasks": list(graph.predecessors(task_id)),
                 "samples": [_already_added_sampleids[s] for s in node["samples"]],
+                "_id": task_id,
             }
             if node["type"] in ["Dispensing"]:
                 task_entry["parameters"] = node["parameters_per_sample"]

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from functools import wraps
 from math import ceil
-from typing import Any, Callable, Dict, List, TypeVar, Union
+from typing import Any, Callable, Dict, List, Literal, TypeVar, Union
 from bson import ObjectId
 from alab_experiment_helper.batch import Batch
 from alab_experiment_helper.sample import Sample
@@ -49,12 +49,14 @@ from alab_experiment_helper.sample import Sample
 _TFunc = TypeVar("_TFunc", bound=Callable[..., Any])
 
 
-def task(name: str, capacity: int):  # -> Callable[[Any], Any]:
+def task(
+    name: str, capacity: int, type: Literal["Action", "Measurement"]
+):  # -> Callable[[Any], Any]:
     def _task(f) -> _TFunc:
         @wraps(f)
         def wrapper(
             samples: Union[Sample, List[Sample]], *task_args, **task_kwargs: Any
-        ) -> Union[Sample, List[Sample]]:
+        ):
             """
             This function is called by the experiment helper to create a task.
             """
