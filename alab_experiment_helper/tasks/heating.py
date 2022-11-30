@@ -14,6 +14,7 @@ def alab_heating(
     Heating the sample
     """
     return {
+        "samples": [sample.name for sample in samples],
         "heating_time": heating_time_minutes,
         "heating_temperature": heating_temperature_celsius,
     }

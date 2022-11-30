@@ -5,7 +5,9 @@ from alab_experiment_helper.tasks.base import task
 
 
 @task("Diffraction")
-def xrd(sample: Sample, *, schema: Literal["fast_10min", "slow_30min"] = "fast_10min"):
+def diffraction(
+    sample: Sample, *, schema: Literal["fast_10min", "slow_30min"] = "fast_10min"
+):
     """
     Do xrd on the given sample with the given ``schema``. The schema is either ``fast_10min`` or ``slow_30min``.
 

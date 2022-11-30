@@ -3,12 +3,14 @@ from typing import List, Literal
 from alab_experiment_helper.sample import Sample
 from alab_experiment_helper.tasks.base import task
 
+ALLOWED_ATMOSPHERES = ["Ar", "O2", "2H_98Ar"]
+
 
 @task("HeatingWithAtmosphere")
 def heating_with_atmosphere(
     samples: List[Sample],
     setpoints: List[List[int]],
-    atmosphere: Literal["Ar", "N2"],
+    atmosphere: Literal["Ar", "O2", "2H_98Ar"],
     flow_rate_ccm: float = 100,
 ):
     """
@@ -25,15 +27,16 @@ def heating_with_atmosphere(
     """
     if len(samples) > 4:
         raise ValueError("The number of samples should be <= 4")
-    if atmosphere not in ["Ar", "N2", "vacuum"]:
-        raise ValueError("The atmosphere should be either ``Ar``, ``N2`` or ``vacuum``")
+    if atmosphere not in ALLOWED_ATMOSPHERES:
+        raise ValueError(f"The atmosphere should be one of {ALLOWED_ATMOSPHERES}")
     if flow_rate_ccm < 0 or flow_rate_ccm > 1000:
         raise ValueError(
-            "The flow rate should be between 0 and 1000"
+            "The flow rate should be between 0 and 1000 ccm"
         )  # TODO units of flow rate?
 
     # TODO make sure ramp rates, temperature ranges are respected in setpoints
     return {
+        "samples": [sample.name for sample in samples],
         "setpoints": setpoints,
         "atmosphere": atmosphere,
         "flow_rate": flow_rate_ccm,
@@ -45,7 +48,7 @@ def simple_heating_with_atmosphere(
     samples: List[Sample],
     heating_time_minutes: float,
     heating_temperature_celsius: float,
-    atmosphere: Literal["Ar", "N2"],
+    atmosphere: Literal["Ar", "O2", "2H_98Ar"],
     ramp_rate_celsius_per_min: int = 5,
     flow_rate_ccm: float = 100,
 ):
@@ -63,11 +66,11 @@ def simple_heating_with_atmosphere(
     """
     if len(samples) > 4:
         raise ValueError("The number of samples should be <= 4")
-    if atmosphere not in ["Ar", "N2"]:
-        raise ValueError("The atmosphere should be either ``Ar``, ``N2`` or ``vacuum``")
-    if flow_rate_ccm < 0 or flow_rate_ccm > 1000:  # TODO check the bounds. units?
+    if atmosphere not in ALLOWED_ATMOSPHERES:
+        raise ValueError(f"The atmosphere should be one of {ALLOWED_ATMOSPHERES}")
+    if flow_rate_ccm < 0 or flow_rate_ccm > 1000:
         raise ValueError(
-            "The flow rate should be between 0 and 1000"
+            "The flow rate should be between 0 and 1000 ccm"
         )  # TODO units of flow rate?
     if heating_time_minutes < 0:
         raise ValueError("The heating time should be >= 0")
@@ -87,6 +90,7 @@ def simple_heating_with_atmosphere(
     ]
 
     return {
+        "samples": [sample.name for sample in samples],
         "setpoints": setpoints,
         "atmosphere": atmosphere,
         "flow_rate": flow_rate_ccm,
