@@ -6,7 +6,7 @@ from alab_experiment_helper.tasks.base import task
 @task("HeatingWithAtmosphere", 4)
 def heating_with_atmosphere(
     setpoints: List[List[int]],
-    atmosphere: Literal["Ar", "N2"],
+    atmosphere: Literal["Ar", "O2", "2H_98Ar"],
     flow_rate_ccm: float = 100,
 ):
     """
