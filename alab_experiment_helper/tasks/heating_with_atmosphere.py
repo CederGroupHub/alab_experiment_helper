@@ -15,14 +15,14 @@ def heating_with_atmosphere(
 ):
     """
     Annealing in the tube furnaces. You can select the atmosphere for heating. Four samples at a time for heating.
-    The parameter setpoints is a list of [temperature, duration] pairs. The temperature is in °C and the duration
+    The parameter setpoints is a list of [duration, temperature] pairs. The temperature is in °C and the duration
     is in minutes. The range of flow_rate should be between 0 and 1000.
 
     Args:
         samples: the samples to heat
-        setpoints: list of [temperature, duration], e.g., [[300, 60], [300, 7200]] means to heat up to 300°C in 60 min
+        setpoints: list of [duration (minutes), temperature (celsius)], e.g., [[60, 300], [7200, 300]] means to heat up to 300°C in 60 min
           in and keep it at 300°C for 12 h.
-        atmosphere: the gas atmosphere for the operation. You can choose between ``Ar``, ``N2`` and ``vacuum``.
+        atmosphere: the gas atmosphere for the operation. You can choose between ``Ar``, ``O2`` and ``2H_98Ar``.
         flow_rate: the flow rate of the gas in the furnace.
     """
     if len(samples) > 4:
@@ -52,17 +52,17 @@ def simple_heating_with_atmosphere(
     ramp_rate_celsius_per_min: int = 5,
     flow_rate_ccm: float = 100,
 ):
-    """
-    Annealing in the tube furnaces. You can select the atmosphere for heating. Four samples at a time for heating.
-    The parameter setpoints is a list of [temperature, duration] pairs. The temperature is in °C and the duration
-    is in minutes. The range of flow_rate should be between 0 and 1000.
+    """Basic annealing in the tube furnaces. Ramp up to a set point, hold for some time, ramp down to room temperature.
+    You can select the atmosphere for heating. Up to four samples at a time for heating.
+    The The temperature is in °C and the duration, is in minutes. The range of flow_rate should be between 0 and 1000.
 
     Args:
-        samples: the samples to heat
-        setpoints: list of [temperature, duration], e.g., [[300, 60], [300, 7200]] means to heat up to 300°C in 60 min
-          in and keep it at 300°C for 12 h.
-        atmosphere: the gas atmosphere for the operation. You can choose between ``Ar``, ``N2`` and ``vacuum``.
-        flow_rate: the flow rate of the gas in the furnace.
+        samples (List[Sample]): samples to heat. max four samples
+        heating_time_minutes (float): duration (minutes) to hold at the set temperature
+        heating_temperature_celsius (float): temperature (celsius) to heat to
+        atmosphere (Literal[&quot;Ar&quot;, &quot;O2&quot;, &quot;2H_98Ar&quot;]): gas environment to heat in
+        ramp_rate_celsius_per_min (int, optional): ramp rate (celsius/minute) to heat at. Defaults to 5.
+        flow_rate_ccm (float, optional): gas flow rate, in cubic centimeters per minute. Defaults to 100.
     """
     if len(samples) > 4:
         raise ValueError("The number of samples should be <= 4")
