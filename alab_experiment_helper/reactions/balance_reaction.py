@@ -18,7 +18,6 @@ class BalanceError(Exception):
     pass
 
 
-@lru_cache(maxsize=128)
 def generate_recipe(
         target: str,
         precursor_list: List[str],
@@ -60,11 +59,13 @@ def generate_recipe(
 @lru_cache(maxsize=1024)
 def parse_material_string(material_string: str) -> dict:
     material_dict = mp.parse_material_string(material_string)
-    if not material_dict["material_formula"] or all(len(comp["elements"]) == 0 for comp in material_dict["composition"]):
+    if not material_dict["material_formula"] or all(
+            len(comp["elements"]) == 0 for comp in material_dict["composition"]):
         raise ParserError(f"Could not parse material string {material_string}")
 
     molmass = calculate_molmass(material_dict)
     material_dict["molmass"] = molmass
+    # print(material_string, molmass)
     return material_dict
 
 
