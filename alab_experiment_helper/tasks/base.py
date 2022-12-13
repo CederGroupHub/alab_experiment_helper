@@ -1,15 +1,19 @@
 import uuid
 from functools import wraps
-from typing import Any, List, Union, Callable
+from typing import Any, List, TypeVar, Union, Callable
 
 from alab_experiment_helper.sample import Sample
 
 
-def task(name) -> Callable[[Any], Any]:
-    def _task(f):
+_TFunc = TypeVar("_TFunc", bound=Callable[..., Any])
+
+
+def task(name):  # -> Callable[[Any], Any]:
+    def _task(f) -> _TFunc:
         @wraps(f)
-        def wrapper(samples: Union[Sample, List[Sample]], *task_args,
-                    **task_kwargs: Any) -> Union[Sample, List[Sample]]:
+        def wrapper(
+            samples: Union[Sample, List[Sample]], *task_args, **task_kwargs: Any
+        ) -> Union[Sample, List[Sample]]:
             """
             This function is called by the experiment helper to create a task.
             """
@@ -22,11 +26,17 @@ def task(name) -> Callable[[Any], Any]:
 
             experiment = samples[0].experiment
             task_id = str(uuid.uuid4())
-            experiment.add_task(task_id=task_id, task_name=name, task_params=task_params, samples=samples)
+            experiment.add_task(
+                task_id=task_id,
+                task_name=name,
+                task_params=task_params,
+                samples=samples,
+            )
 
             for sample in samples:
                 sample.add_task(task_id=task_id)
             return samples if not single_sample else samples[0]
 
         return wrapper
+
     return _task

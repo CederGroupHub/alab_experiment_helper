@@ -2,9 +2,11 @@ from alab_experiment_helper.sample import Sample
 from alab_experiment_helper.tasks.base import task
 
 
-@task("Disposing")
-def disposing(sample: Sample):
+@task("Ending")
+def ending(sample: Sample, end_position: str):
     """
     Store the sample in the storage positions
     """
-    return {}
+    return {
+        "end_position": end_position,
+    }
